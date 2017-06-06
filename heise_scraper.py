@@ -47,12 +47,15 @@ def main():
 	# data analysis: top 3 words in headers
 	with open("heise_https.csv") as f:
 		doc = f.read()
-	words = re.findall(r'\w+', doc)
+	# regular expression to find words (\w+) and composed words (\w+-\w+)
+	words = re.findall('(\w+-\w+)|(\w+)', doc)
+	
 	word_counts = Counter(words)
 	test = word_counts.most_common(3)
+	# prints top 3 words with count
 	print("\nThe top 3 words in heise/thema/https-headers are:\n")
 	for i in test:
-		print(i[0], ": ", i[1])
+		print(i[0][0],i[0][1], ": ", i[1])
 
 # main program
 
