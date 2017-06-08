@@ -31,16 +31,14 @@ def main():
 		
 	# write headers into heise_https.csv
 	for page in pages:
-		content = getPage("https://www.heise.de"+page)
-		content = content.findAll("div", {"class": "keywordliste"})
-		for c in content:
-			cont_nav = c.findAll("nav")
-			for head in cont_nav:
-				header = head.findAll("header")
-				res = ""
-				for result in header:
-					res+=result.string
-					csvw.writerow(result)
+		content = getPage("https://www.heise.de"+page).find("div", {"class": "keywordliste"})
+		content = content.findAll("nav")
+		for head in content:
+			header = head.findAll("header")
+			res = ""
+			for result in header:
+				res+=result.string
+				csvw.writerow(result)
 	
 	file_obj.close()                                # close file
 	
